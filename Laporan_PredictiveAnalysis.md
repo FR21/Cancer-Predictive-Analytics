@@ -8,7 +8,7 @@ Deteksi dini kanker sangat penting dalam meningkatkan hasil pengobatan dan kelan
 
 Dalam konteks ini, pendekatan berbasis teknologi, khususnya _Machine Learning_ (ML), menawarkan potensi besar dalam meningkatkan deteksi dan prediksi keparahan kanker. ML dapat menganalisis data klinis dan lingkungan pasien untuk mengidentifikasi pola yang mungkin tidak terlihat oleh metode konvensional. Studi oleh **[Zhou dan Rhrissorrakrai (2024)](https://doi.org/10.48550/arXiv.2410.22387)** menunjukkan bahwa ML dapat digunakan untuk menemukan _biomarker multi-omik_ yang berkaitan dengan keparahan kanker prostat, yang dapat membantu dalam penilaian dan pengobatan pasien .
 
-Proyek ini bertujuan untuk mengembangkan model prediksi keparahan kanker menggunakan beberapa algoritma Machine Learning. Dengan memanfaatkan data dari berbagai faktor genetik dan lingkungan, model diharapkan dapat memberikan prediksi yang akurat mengenai tingkat keparahan kanker pada pasien. Implementasi model dapat membantu dalam pengambilan keputusan klinis, perencanaan pengobatan, dan pada akhirnya, meningkatkan hasil kesehatan pasien secara keseluruhan.
+Proyek ini bertujuan untuk mengembangkan model prediksi keparahan kanker menggunakan beberapa algoritma _Machine Learning_. Dengan memanfaatkan data dari berbagai faktor genetik dan lingkungan, model diharapkan dapat memberikan prediksi yang akurat mengenai tingkat keparahan kanker pada pasien. Implementasi model dapat membantu dalam pengambilan keputusan klinis, perencanaan pengobatan, dan pada akhirnya, meningkatkan hasil kesehatan pasien secara keseluruhan.
 
 ## Business Understanding
 ### Problem Statements
@@ -24,7 +24,7 @@ Proyek ini bertujuan untuk mengembangkan model prediksi keparahan kanker menggun
 ### Solution Statement
 - Mengimplementasikan model regresi berbasis _Machine Learning_ tingkat lanjut, seperti Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor untuk memprediksi tingkat keparahan kanker berdasarkan integrasi data dari faktor genetik, gaya hidup, dan lingkungan dengan akurasi yang tinggi.
 - Mengintegrasikan berbagai fitur penting dari domain genetik, gaya hidup, dan lingkungan dengan analisis korelasi berbasis statistik untuk memastikan input yang diberikan ke model relevan dan berkualitas tinggi.
-- Mengoptimalkan performa model dengan _hyperparameter tuning_ pada algoritma yang dipilih dengan menggunakan teknik _RandomizedSearchCV_, guna meningkatkan akurasi prediksi dan mengurangi _error_. Dilakukan juga visualisasi dan evaluasi mendalam, termasuk _plotting_ residual, p_redicted vs actual scores_, dan distribusi _error_ guna memahami perilaku model dan mengidentifikasi bias atau pola ketidaksesuaian dalam hasil prediksi.
+- Melakukan visualisasi dan evaluasi mendalam, termasuk _plotting_ residual, _predicted vs actual scores_, dan distribusi _error_ guna memahami perilaku model dan mengidentifikasi bias atau pola ketidaksesuaian dalam hasil prediksi.
 
 ## Data Understanding
 Dataset yang digunakan dalam proyek ini diperoleh dari platform Kaggle dengan judul **`Global Cancer Patients (2015–2024)`**. Dataset ini berisi data pasien kanker dari berbagai negara dan mencakup sejumlah faktor penting seperti data demografis, genetika, gaya hidup, serta kondisi lingkungan pasien. Tujuan dari penggunaan dataset ini adalah untuk membangun model regresi yang dapat memprediksi tingkat keparahan kanker berdasarkan kombinasi fitur-fitur tersebut. 
