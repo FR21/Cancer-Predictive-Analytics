@@ -358,9 +358,9 @@ Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evalu
 ## Conclusion
 Dalam studi kasus ini, dilakukan serangkaian tahapan mulai dari _data understanding_, _data preprocessing_, _feature engineering_, standarisasi data, hingga pemodelan menggunakan tiga algoritma _machine learning_ yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor. Tujuannya adalah untuk membangun model prediktif yang mampu memperkirakan tingkat keparahan kanker berdasarkan berbagai faktor seperti genetik, gaya hidup, dan lingkungan.
 
-Tahap evaluasi dilakukan dengan menggunakan metrik MAE, RMSE, dan R² Score baik pada data latih maupun data uji. Hasil evaluasi menunjukkan bahwa:
+Tahap evaluasi dilakukan dengan menggunakan metrik MAE, RMSE, dan _R² Score_ baik pada data latih maupun data uji. Hasil evaluasi menunjukkan bahwa:
 - Random Forest memberikan performa cukup baik namun relatif kurang akurat dibanding dua model lainnya.
 - XGBoost menunjukkan hasil prediksi yang sangat presisi dengan error kecil dan kemampuan generalisasi tinggi.
-- LightGBM berhasil mengungguli kedua model lainnya dengan nilai MAE, RMSE, dan R² Score terbaik, serta visualisasi residual yang paling ideal.
+- LightGBM berhasil mengungguli kedua model lainnya dengan nilai MAE, RMSE, dan _R² Score_ terbaik, serta visualisasi residual yang paling ideal.
 
 Berdasarkan evaluasi metrik dan analisis visual, LightGBM Regressor dipilih sebagai model terbaik dalam proyek ini. Model ini tidak hanya memberikan akurasi tinggi, tetapi juga efisiensi dalam proses pelatihan, serta mampu menangani dataset kompleks dengan baik.
