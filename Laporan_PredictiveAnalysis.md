@@ -183,7 +183,8 @@ Tahapan pembuatan model yang dilakukan adalah sebagai berikut:
 
 1. **`Inisialisasi Model`**: 
 Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor. Masing-masing model dikonfigurasi dengan parameter tertentu yang telah disesuaikan untuk meningkatkan performa model terhadap data yang digunakan.
-    - Random Forest Regressor
+    - Random Forest Regressor:
+      
         Model ini cocok untuk menangani data non-linear dan memiliki ketahanan terhadap overfitting dalam jumlah fitur yang besar.
         ```python
         rf_model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
@@ -192,7 +193,8 @@ Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Ra
         - max_depth=10: Batas kedalaman maksimum setiap pohon untuk menghindari model menjadi terlalu kompleks (overfitting).
         - random_state=42: Digunakan untuk memastikan hasil yang konsisten di setiap eksekusi.
         
-    - XGBoost Regressor
+    - XGBoost Regressor:
+      
         XGBoost terkenal karena efisiensinya dalam menangani data tabular dan sering digunakan dalam kompetisi _machine learning_.
         ```python
         xgb_model = XGBRegressor(n_estimators=200, learning_rate=0.1, max_depth=6, random_state=42)
@@ -202,7 +204,8 @@ Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Ra
        -  max_depth=6: Mengontrol kompleksitas setiap pohon. Nilai ini membantu menjaga keseimbangan antara bias dan varians.
         - random_state=42: Digunakan untuk memastikan hasil yang konsisten di setiap eksekusi.
         
-    - LightGBM Regressor
+    - LightGBM Regressor:
+      
         LightGBM dirancang untuk efisiensi dan kecepatan, dan sangat optimal untuk dataset besar dengan banyak fitur.
         ```python
         lgb_model = LGBMRegressor(n_estimators=200, learning_rate=0.1, max_depth=6, random_state=42)
