@@ -73,7 +73,7 @@ Distribusi jenis kanker dalam dataset ini menunjukkan persebaran yang cukup mera
 ![Categorical_CancerStage](./assets/Categorical_Cancer_Stage.png)
 Distribusi stadium kanker dalam dataset ini mencakup Stadium 0 hingga Stadium 4, yang menggambarkan tingkat keparahan atau progresi penyakit kanker pada pasien. Masing-masing stadium memiliki proporsi yang cukup merata, yaitu berada dalam kisaran 19,9% hingga 20,2%. Pemerataan distribusi ini menunjukkan bahwa data yang digunakan bersifat seimbang untuk setiap tingkat stadium, dari yang paling ringan (Stage 0) hingga yang paling berat (Stage 4). Hal ini penting untuk memastikan bahwa model yang dibangun tidak bias terhadap tingkat keparahan tertentu, sehingga performa prediksi dapat diandalkan di seluruh spektrum kondisi pasien.
 
-### Visualisasi _Correlation Matrix_
+### Visualisasi Correlation Matrix
 ![Correlation Matrix](./assets/Correlation_Matrix.png)
 Visualisasi _Correlation matrix_ menunjukkan hubungan antar variabel numerik dalam dataset. Terlihat bahwa _Target Severity Score_ memiliki korelasi positif tertinggi dengan _Genetic Risk_ (0.48), _Smoking_ (0.48), _Air Pollution_ (0.37), dan _Alcohol Use_ (0.36), yang mengindikasikan bahwa faktor-faktor tersebut cukup berpengaruh terhadap tingkat keparahan kanker. Sebaliknya, terdapat korelasi negatif antara _Treatment Cost_ dan _Target Severity Score_ (-0.47), yang bisa jadi mengindikasikan bahwa pasien dengan tingkat keparahan tinggi mendapatkan penanganan lebih awal atau tidak mampu menanggung biaya tinggi. Korelasi antar variabel lainnya cenderung lemah atau tidak signifikan.
 
@@ -81,4 +81,94 @@ Visualisasi _Correlation matrix_ menunjukkan hubungan antar variabel numerik dal
 ![KDE](./assets/KDE.png)
 Visualisasi tersebut merupakan _pairplot_ yang menampilkan hubungan antar variabel numerik dalam dataset kanker. Secara umum, sebagian besar fitur tidak menunjukkan korelasi yang kuat satu sama lain, terlihat dari sebaran titik yang acak. Namun, terdapat korelasi positif yang cukup jelas antara fitur-fitur seperti _Air Pollution_, _Alcohol Use_, _Smoking_, dan _Obesity Level_ terhadap _Target Severity Score_, yang menunjukkan bahwa faktor gaya hidup dan lingkungan memiliki kontribusi terhadap tingkat keparahan kanker. Sementara itu, _Treatment Cost_  memiliki korelasi negatif terhadap _Target Severity Score_.
 
+## Data Preparation
+Berikut ini adalah beberapa tahap yang dilakukan sebagai berikut:
+-  **`Feature Selection`**: Langkah pertama yang dilakukan adalah menghapus beberapa kolom yang dianggap tidak relevan terhadap proses pemodelan dan tidak memberikan kontribusi signifikan terhadap prediksi tingkat keparahan kanker. Kolom-kolom yang dihapus meliputi _Patient_ID_, Gender, _Country_Region_, dan _Year_. Kolom _Patient_ID_ merupakan _identifier_ unik yang tidak memiliki nilai prediktif, sementara kolom Gender, _Country_Region_, dan _Year_ tidak menunjukkan hubungan yang kuat dengan variabel target berdasarkan hasil eksplorasi awal serta analisis korelasi. Penghapusan ini bertujuan untuk menyederhanakan data, serta meningkatkan efisiensi proses pemodelan selanjutnya.
+    ```python
+    # Drop unnecessary columns: Patient_ID, Gender, Country_Region, and Year
+    df_cleaned = df.drop(columns=['Patient_ID', 'Gender', 'Country_Region', 'Year'])
+    df_cleaned.head()
+    ```
+
+-  **`Handling Outlier`**: Pada tahap ini, dilakukan visualisasi distribusi data numerik menggunakan _boxplot_ untuk mendeteksi keberadaan _outlier_. _Boxplot_ memberikan gambaran tentang median, kuartil, serta titik-titik data yang berada di luar rentang normal (outlier). Selain itu, digunakan juga metode _Interquartile Range_ (IQR) untuk mendeteksi _outlier_ secara kuantitatif. Pertama, dihitung kuartil pertama (Q1) dan kuartil ketiga (Q3) dari setiap fitur numerik, kemudian IQR dihitung sebagai selisih antara Q3 dan Q1. Batas bawah dan batas atas untuk mendeteksi outlier ditentukan dengan rumus Q1 - 1,5 × IQR dan Q3 + 1,5 × IQR. Data yang berada di luar batas ini dikategorikan sebagai _outlier_. Jumlah outlier pada setiap kolom numerik kemudian dihitung untuk mengetahui sebaran nilai ekstrim dalam _dataset_. Informasi ini menjadi dasar dalam mengambil keputusan penanganan _outlier_ agar data yang digunakan dalam pemodelan lebih bersih dan model yang dihasilkan lebih akurat serta stabil.
+    ```python
+    # Create boxplot for each numeric column to visualize distribution and detect outliers
+    sns.set(style="whitegrid")
+    for col in numeric_cols:
+        plt.figure(figsize=(10, 4))
+        ax = sns.boxplot(
+            x=df[col],
+            color="skyblue",
+            width=0.5,
+            fliersize=5,
+            linewidth=1.5,
+            boxprops=dict(facecolor='lightblue', edgecolor='black'),
+            medianprops=dict(color='red', linewidth=2),
+            whiskerprops=dict(color='black'),
+            capprops=dict(color='black'),
+            flierprops=dict(marker='o', markerfacecolor='orange', markersize=5, linestyle='none')
+        )
+    
+        plt.title(f'Distribution and Outliers: {col}', fontsize=14, fontweight='bold')
+        plt.xlabel(col, fontsize=12)
+        plt.ylabel("Value Distribution", fontsize=11)
+        plt.grid(axis='x', linestyle='--', linewidth=0.5, alpha=0.7)
+        plt.tight_layout()
+        plt.show()
+    
+    # Calculate the first quartile (Q1), third quartile (Q3), and interquartile range (IQR)
+    Q1 = df_numeric.quantile(0.25)
+    Q3 = df_numeric.quantile(0.75)
+    IQR = Q3 - Q1
+    
+    # Calculate lower and upper bounds for detecting outliers
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    
+    # Count the number of outliers in each numeric column
+    outlier_counts = ((df_numeric < lower_bound) | (df_numeric > upper_bound)).sum().sort_values(ascending=False)
+    print("Number of Outliers per Column:\n")
+    print(outlier_counts)
+    ```
+
+- **`Standardization`**: Berikutnya dilakukan standarisasi pada fitur-fitur numerik. Standarisasi dilakukan menggunakan metode _StandardScaler_ yang mengubah distribusi data agar memiliki rata-rata (mean) nol dan standar deviasi satu. Proses ini penting untuk memastikan bahwa setiap fitur numerik memiliki skala yang sama sehingga tidak ada fitur yang mendominasi proses pemodelan hanya karena skala nilainya yang besar. Standarisasi membantu meningkatkan performa dan konvergensi algoritma machine learning, terutama untuk model yang sensitif terhadap skala fitur seperti regresi dan SVM.
+    ```python
+    # Apply standardization only to numeric features
+    scaler = StandardScaler()
+    df_cleaned[numeric_cols] = scaler.fit_transform(df_cleaned[numeric_cols])
+    df_cleaned.head()
+    ```
+
+- **`Checking Feature Distribution After Standardization`**: Setelah proses standarisasi dilakukan terhadap fitur numerik, dilakukan visualisasi kembali menggunakan _boxplot_ untuk memastikan bahwa data telah memiliki skala yang seragam. _Boxplot_ ini menunjukkan bahwa nilai-nilai pada setiap fitur numerik kini terdistribusi di sekitar nol dengan standar deviasi satu, sesuai dengan karakteristik hasil transformasi StandardScaler. Langkah ini penting untuk memverifikasi keberhasilan proses standarisasi serta untuk mendeteksi jika masih terdapat _outlier_ atau anomali yang signifikan. Dengan distribusi yang lebih seimbang antar fitur, model _machine learning_ yang akan dibangun diharapkan dapat bekerja lebih optimal tanpa bias terhadap fitur tertentu yang sebelumnya memiliki skala lebih besar.
+    ```python
+    # Plot boxplot of numeric features after standardization
+    plt.figure(figsize=(12, 6))
+    sns.boxplot(data=df_numeric, orient="v", palette="Set3", width=0.6, fliersize=4, linewidth=1)
+    plt.title("Boxplot of Numeric Features (Predictors) After Standardization", fontsize=16, fontweight='bold')
+    plt.xlabel("Features", fontsize=12)
+    plt.ylabel("Standardized Values", fontsize=12)
+    plt.xticks(rotation=30)
+    plt.grid(axis='y', linestyle='--', alpha=0.6)
+    plt.tight_layout()
+    plt.show()
+    ```
+
+- **`Categorical Feature Encoding`**: Pada tahap ini, dilakukan proses _encoding_ terhadap fitur kategorikal yaitu _Cancer_Type_ dan _Cancer_Stage_ menggunakan metode _One-Hot Encoding_. Teknik ini digunakan untuk mengubah data kategorikal menjadi format numerik biner agar dapat diproses oleh algoritma _machine learning_, yang umumnya hanya menerima input numerik. _One-Hot Encoding_ bekerja dengan membuat kolom baru untuk setiap kategori unik dalam fitur, dan memberikan nilai 1 jika baris tersebut termasuk dalam kategori tersebut, serta 0 jika tidak. Penerapan encoding ini memastikan bahwa informasi kategorikal dapat digunakan secara efektif tanpa memperkenalkan urutan atau bobot yang tidak semestinya antar kategori, yang bisa menyesatkan model.
+    ```python
+    # Encode categorical columns 'Cancer_Type' and 'Cancer_Stage' using one-hot encoding
+    df_encoded = pd.get_dummies(df_cleaned, columns=['Cancer_Type', 'Cancer_Stage'], dtype=int)
+    df_encoded.head()
+    ```
+- **`Train-Test-Split`**: Tahap terakhir dalam proses persiapan data adalah memisahkan fitur (variabel independen) dari target (variabel dependen), yaitu _Target_Severity_Score_. Setelah pemisahan, data dibagi menjadi dua bagian, yaitu data latih (training set) sebesar 80% dan data uji (testing set) sebesar 20% menggunakan fungsi train_test_split. Pembagian ini bertujuan untuk melatih model pada sebagian data (training set) dan menguji performanya pada data yang belum pernah dilihat sebelumnya (testing set). Dengan cara ini, evaluasi model dapat dilakukan secara objektif dan menghindari _overfitting_.
+    ```python
+    # Separate features and target variable
+    X = df_encoded.drop(columns=['Target_Severity_Score'])
+    y = df_encoded['Target_Severity_Score']
+    # Split data into training (80%) and testing (20%) sets
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y,
+        test_size=0.2,
+        random_state=42
+    )
+    ```
 
