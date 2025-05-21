@@ -268,18 +268,17 @@ Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evalu
     $$
     \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
     $$
-
-    RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratkan. Nilai lebih kecil menunjukkan prediksi lebih akurat secara keseluruhan. Oleh karena itu, RMSE sangat berguna untuk mendeteksi model yang sensitif terhadap _outlier_.
-   
-    ```python
-        # Random Forest RMSE
-        rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
-        # XGBoost RMSE
-        rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
-        # LightGBM RMSE
-        rmse_lgb = np.sqrt(mean_squared_error(y_test, y_pred_lgb))
-    ```
     
+    RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratkan. Nilai lebih kecil menunjukkan prediksi lebih akurat secara keseluruhan. Oleh karena itu, RMSE sangat berguna untuk mendeteksi model yang sensitif terhadap _outlier_.
+       ```python
+            # Random Forest RMSE
+            rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+            # XGBoost RMSE
+            rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
+            # LightGBM RMSE
+            rmse_lgb = np.sqrt(mean_squared_error(y_test, y_pred_lgb))
+       ```
+        
     Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
 
 4. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
