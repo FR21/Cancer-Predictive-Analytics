@@ -185,7 +185,7 @@ Tahapan pembuatan model yang dilakukan adalah sebagai berikut:
 Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor. Masing-masing model dikonfigurasi dengan parameter tertentu yang telah disesuaikan untuk meningkatkan performa model terhadap data yang digunakan.
     - Random Forest Regressor:
       
-        Model ini cocok untuk menangani data non-linear dan memiliki ketahanan terhadap overfitting dalam jumlah fitur yang besar.
+        Model ini cocok untuk menangani data non-linear dan memiliki ketahanan terhadap _overfitting_ dalam jumlah fitur yang besar.
         ```python
         rf_model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
         ```
@@ -216,7 +216,7 @@ Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Ra
         - random_state=42: Digunakan untuk memastikan hasil yang konsisten di setiap eksekusi.
         
 2. **`Pelatihan Model`**: 
-Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (training) ketiga model regresi, yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor — menggunakan data pelatihan yang telah dipersiapkan (X_train dan y_train).
+Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (training) ketiga model regresi, yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor menggunakan data pelatihan yang telah dipersiapkan (X_train dan y_train).
     - Random Forest Regressor
         ```python
         rf_model.fit(X_train, y_train)
@@ -230,8 +230,7 @@ Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (tra
         lgb_model.fit(X_train, y_train)
         ```
 3. **`Evaluasi Model`**:
-Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi — Random Forest, XGBoost, dan LightGBM — menggunakan data pelatihan. Evaluasi dilakukan menggunakan tiga metrik utama: Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), dan R² Score, yang mengukur akurasi prediksi model terhadap data.
-    Hasil Evaluasi pada Data Pelatihan:
+Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi menggunakan data pelatihan. Evaluasi dilakukan menggunakan tiga metrik utama: _Mean Absolute Error_ (MAE), _Root Mean Squared Error_ (RMSE), dan _R² Score_, yang mengukur akurasi prediksi model terhadap data.
    
     | Model                    | MAE  |  RMSE | R² Score |
     |--------------------------|------|-------|----------|
