@@ -79,4 +79,5 @@ Visualisasi tersebut merupakan _pairplot_ yang menampilkan hubungan antar variab
 
 ### Visualisasi _Correlation Matrix_
 ![Correlation Matrix](./assets/Correlation_Matrix.png)
+
 _Correlation matrix_ menunjukkan hubungan antar variabel numerik dalam dataset. Terlihat bahwa _Target Severity Score_ memiliki korelasi positif tertinggi dengan _Genetic Risk_ (0.48), _Smoking_ (0.48), _Air Pollution_ (0.37), dan _Alcohol Use_ (0.36), yang mengindikasikan bahwa faktor-faktor tersebut cukup berpengaruh terhadap tingkat keparahan kanker. Sebaliknya, terdapat korelasi negatif antara _Treatment Cost_ dan _Target Severity Score_ (-0.47), yang bisa jadi mengindikasikan bahwa pasien dengan tingkat keparahan tinggi mendapatkan penanganan lebih awal atau tidak mampu menanggung biaya tinggi. Korelasi antar variabel lainnya cenderung lemah atau tidak signifikan.
