@@ -180,8 +180,7 @@ Pada tahap ini, dilakukan pembangunan model _machine learning_ untuk memprediksi
 - **`LightGBM`**: Algoritma _boosting_ berbasis histogram yang dikembangkan untuk kecepatan dan efisiensi. Model ini membagi data berdasarkan _leaf-wise growth_, bukan _level-wise_ seperti XGBoost, yang membuatnya lebih cepat untuk dataset besar. Kelebihan dari model ini adalah waktu pelatihan jauh lebih cepat dibandingkan model _boosting_ lainnya, dapat menangani _dataset_ skala besar dengan efisien, serta mendukung pengolahan paralel dan GPU. Kekurangan dari model ini adalah cenderung lebih sensitif terhadap distribusi fitur dan _outlier_ ekstrim dan bisa mengalami _overfitting_ jika tidak dilakukan _tuning_ dengan benar.
 
 Tahapan pembuatan model yang dilakukan adalah sebagai berikut:
-**1. Inisialisasi model**
-
+**`1. Inisialisasi model`**
 Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor. Masing-masing model dikonfigurasi dengan parameter tertentu yang telah disesuaikan untuk meningkatkan performa model terhadap data yang digunakan.
     - Random Forest Regressor
         Model ini cocok untuk menangani data non-linear dan memiliki ketahanan terhadap overfitting dalam jumlah fitur yang besar.
@@ -211,8 +210,8 @@ Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Ra
         - learning_rate=0.1: Ukuran langkah untuk memperbarui prediksi pada setiap iterasi. Nilai yang lebih kecil menghasilkan proses pelatihan yang lebih lambat namun akurat.
        -  max_depth=6: Mengontrol kompleksitas setiap pohon. Nilai ini membantu menjaga keseimbangan antara bias dan varians.
         - random_state=42: Digunakan untuk memastikan hasil yang konsisten di setiap eksekusi.
-**2. Pelatihan Model**
-
+        
+**`2. Pelatihan Model`**
 Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (training) ketiga model regresi, yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor — menggunakan data pelatihan yang telah dipersiapkan (X_train dan y_train).
     - Random Forest Regressor
         ```python
@@ -226,8 +225,8 @@ Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (tra
          ```python
         lgb_model.fit(X_train, y_train)
         ```
-**3. Evaluasi Model**
-
+        
+**`3. Evaluasi Model`** 
 Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi — Random Forest, XGBoost, dan LightGBM — menggunakan data pelatihan. Evaluasi dilakukan menggunakan tiga metrik utama: Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), dan R² Score, yang mengukur akurasi prediksi model terhadap data.
 
     Hasil Evaluasi pada Data Pelatihan
