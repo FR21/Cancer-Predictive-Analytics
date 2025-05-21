@@ -25,3 +25,38 @@ Proyek ini bertujuan untuk mengembangkan model prediksi keparahan kanker menggun
 - Mengimplementasikan model regresi berbasis _Machine Learning_ tingkat lanjut, seperti _Random Forest Regressor_, _XGBoost Regressor_, dan _LightGBM Regressor_ untuk memprediksi tingkat keparahan kanker berdasarkan integrasi data dari faktor genetik, gaya hidup, dan lingkungan dengan akurasi yang tinggi.
 - Mengintegrasikan berbagai fitur penting dari domain genetik, gaya hidup, dan lingkungan dengan analisis korelasi berbasis statistik untuk memastikan input yang diberikan ke model relevan dan berkualitas tinggi.
 - Mengoptimalkan performa model dengan _hyperparameter tuning_ pada algoritma yang dipilih dengan menggunakan teknik _RandomizedSearchCV_, guna meningkatkan akurasi prediksi dan mengurangi _error_. Dilakukan juga visualisasi dan evaluasi mendalam, termasuk _plotting_ residual, p_redicted vs actual scores_, dan distribusi _error_ guna memahami perilaku model dan mengidentifikasi bias atau pola ketidaksesuaian dalam hasil prediksi.
+
+## Data Understanding
+Dataset yang digunakan dalam proyek ini diperoleh dari platform Kaggle dengan judul **`Global Cancer Patients (2015–2024)`**. Dataset ini berisi data pasien kanker dari berbagai negara dan mencakup sejumlah faktor penting seperti data demografis, genetika, gaya hidup, serta kondisi lingkungan pasien. Tujuan dari penggunaan dataset ini adalah untuk membangun model regresi yang dapat memprediksi tingkat keparahan kanker berdasarkan kombinasi fitur-fitur tersebut. 
+
+Dataset ini terdiri dari 50.000 baris data pasien dan 15 kolom fitur, disajikan dalam format tabular (CSV). Seluruh data telah melalui proses pembersihan sehingga tidak terdapat _missing values_ maupun data duplikat, menjadikannya siap untuk dianalisis dan digunakan dalam pemodelan _machine learning_.
+
+Link Dataset: https://www.kaggle.com/datasets/zahidmughal2343/global-cancer-patients-2015-2024
+
+### Variabel-variabel pada dataset Global Cancer Patients (2015–2024) sebagai berikut:
+- **`Patient_ID`** : 	ID unik untuk mengidentifikasi setiap pasien. Tidak digunakan dalam pemodelan.
+- **`Age`** :	Usia pasien pada saat data dikumpulkan (dalam tahun).
+- **`Gender`** : Jenis kelamin pasien (Male, Female, Other).
+- **`Country_Region`** : Negara atau wilayah asal pasien.
+- **`Year`** : Tahun pencatatan data pasien, antara 2015 hingga 2024.
+- **`Genetic_Risk`** : Tingkat risiko genetik terhadap kanker, dalam skala 0–10.
+- **`Air_Pollution`** : 	Indeks paparan polusi udara di lingkungan pasien (semakin tinggi, semakin buruk), dalam skala 0-10.
+- **`Alcohol_Use`** : Tingkat konsumsi alkohol pasien, dalam skala kuantitatif 0-10.
+- **`Smoking`** : Tingkat kebiasaan merokok pasien, dalam skala 0–10.
+- **`Obesity_Level`** : Tingkat obesitas pasien, dalam skala 0-10.
+- **`Cancer_Type`** : 	Jenis kanker yang diderita oleh pasien (contoh: Lung, Breast, dll).
+- **`Cancer_Stage`** : Tahapan kanker (contoh: Stage I, Stage II, Stage III, Stage IV).
+- **`Treatment_Cost_USD`** :
+- **``** : 	Perkiraan total biaya pengobatan yang telah dikeluarkan (dalam USD).
+- **`Survival_Years`** : 	Estimasi waktu bertahan hidup pasien setelah diagnosis (dalam tahun).
+- **`Target_Severity_Score`**: 	Skor target yang menunjukkan tingkat keparahan kanker (nilai kontinu). Merupakan variabel target (label) dalam prediksi.
+
+### Visualisasi Distribusi Data Numerik
+![Distribusi Numerik](./assets/Numerical_Visualization.png)
+Distribusi variabel numerik dalam dataset ini memberikan gambaran awal yang penting untuk memahami karakteristik data yang akan digunakan dalam pemodelan. Variabel _Age_ menunjukkan distribusi yang relatif merata antara rentang usia 20 hingga 90 tahun, yang mengindikasikan bahwa dataset ini mencakup pasien dari berbagai kelompok usia tanpa dominasi signifikan pada kelompok tertentu. Distribusi _Year_ sebagai penanda waktu pencatatan data tampak merata antara tahun 2015 hingga 2024, menandakan bahwa data dikumpulkan secara konsisten selama rentang waktu satu dekade.
+
+Pada variabel _Genetic_Risk_, _Air_Pollution_, _Alcohol_Use_, _Smoking_, dan _Obesity_Level_, distribusi tampak menyebar merata dari nilai 0 hingga 10. Ini menunjukkan bahwa tingkat risiko genetik, paparan polusi udara, konsumsi alkohol, kebiasaan merokok, serta tingkat obesitas bervariasi secara signifikan antar pasien, tanpa adanya _outlier_ yang ekstrem. Hal ini penting karena menunjukkan keragaman yang cukup pada faktor risiko yang akan dianalisis terhadap tingkat keparahan kanker.
+
+Sementara itu, _Treatment_Cost_USD_ atau biaya pengobatan memperlihatkan sebaran yang cenderung merata dari angka 0 hingga mendekati 100.000 USD. Ini merefleksikan variasi yang tinggi dalam pembiayaan medis pasien, kemungkinan bergantung pada jenis kanker, stadium, dan lokasi geografis. Variabel _Survival_Years_, yang menunjukkan estimasi tahun bertahan hidup setelah diagnosis, juga tersebar merata antara 0 hingga 10 tahun, mencerminkan keberagaman prognosis dari masing-masing pasien.
+
+Yang paling menarik adalah distribusi target atau label prediksi, yaitu Target_Severity_Score. Variabel ini memiliki distribusi menyerupai kurva normal (distribusi Gaussian), dengan sebagian besar pasien memiliki skor keparahan di sekitar nilai tengah (mean). Distribusi ini sangat ideal untuk masalah regresi karena dapat membantu model untuk belajar secara lebih stabil dan akurat terhadap variasi tingkat keparahan kanker berdasarkan fitur-fitur yang tersedia.
