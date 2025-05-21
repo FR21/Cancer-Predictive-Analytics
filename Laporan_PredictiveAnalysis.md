@@ -73,11 +73,12 @@ Distribusi jenis kanker dalam dataset ini menunjukkan persebaran yang cukup mera
 ![Categorical_CancerStage](./assets/Categorical_Cancer_Stage.png)
 Distribusi stadium kanker dalam dataset ini mencakup Stadium 0 hingga Stadium 4, yang menggambarkan tingkat keparahan atau progresi penyakit kanker pada pasien. Masing-masing stadium memiliki proporsi yang cukup merata, yaitu berada dalam kisaran 19,9% hingga 20,2%. Pemerataan distribusi ini menunjukkan bahwa data yang digunakan bersifat seimbang untuk setiap tingkat stadium, dari yang paling ringan (Stage 0) hingga yang paling berat (Stage 4). Hal ini penting untuk memastikan bahwa model yang dibangun tidak bias terhadap tingkat keparahan tertentu, sehingga performa prediksi dapat diandalkan di seluruh spektrum kondisi pasien.
 
+### Visualisasi _Correlation Matrix_
+![Correlation Matrix](./assets/Correlation_Matrix.png)
+Visualisasi _Correlation matrix_ menunjukkan hubungan antar variabel numerik dalam dataset. Terlihat bahwa _Target Severity Score_ memiliki korelasi positif tertinggi dengan _Genetic Risk_ (0.48), _Smoking_ (0.48), _Air Pollution_ (0.37), dan _Alcohol Use_ (0.36), yang mengindikasikan bahwa faktor-faktor tersebut cukup berpengaruh terhadap tingkat keparahan kanker. Sebaliknya, terdapat korelasi negatif antara _Treatment Cost_ dan _Target Severity Score_ (-0.47), yang bisa jadi mengindikasikan bahwa pasien dengan tingkat keparahan tinggi mendapatkan penanganan lebih awal atau tidak mampu menanggung biaya tinggi. Korelasi antar variabel lainnya cenderung lemah atau tidak signifikan.
+
 ### Visualisasi Relasi Fitur Numerik
 ![KDE](./assets/KDE.png)
 Visualisasi tersebut merupakan _pairplot_ yang menampilkan hubungan antar variabel numerik dalam dataset kanker. Secara umum, sebagian besar fitur tidak menunjukkan korelasi yang kuat satu sama lain, terlihat dari sebaran titik yang acak. Namun, terdapat korelasi positif yang cukup jelas antara fitur-fitur seperti _Air Pollution_, _Alcohol Use_, _Smoking_, dan _Obesity Level_ terhadap _Target Severity Score_, yang menunjukkan bahwa faktor gaya hidup dan lingkungan memiliki kontribusi terhadap tingkat keparahan kanker. Sementara itu, _Treatment Cost_  memiliki korelasi negatif terhadap _Target Severity Score_.
 
-### Visualisasi _Correlation Matrix_
-![Correlation Matrix](./assets/Correlation_Matrix.png)
 
-_Correlation matrix_ menunjukkan hubungan antar variabel numerik dalam dataset. Terlihat bahwa _Target Severity Score_ memiliki korelasi positif tertinggi dengan _Genetic Risk_ (0.48), _Smoking_ (0.48), _Air Pollution_ (0.37), dan _Alcohol Use_ (0.36), yang mengindikasikan bahwa faktor-faktor tersebut cukup berpengaruh terhadap tingkat keparahan kanker. Sebaliknya, terdapat korelasi negatif antara _Treatment Cost_ dan _Target Severity Score_ (-0.47), yang bisa jadi mengindikasikan bahwa pasien dengan tingkat keparahan tinggi mendapatkan penanganan lebih awal atau tidak mampu menanggung biaya tinggi. Korelasi antar variabel lainnya cenderung lemah atau tidak signifikan.
