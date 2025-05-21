@@ -242,10 +242,12 @@ Berdasarkan hasil evaluasi, **XGBoost Regressor** menunjukkan performa terbaik d
 Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evaluasi terhadap performa masing-masing model yang telah dibangun. Evaluasi dilakukan dengan tujuan untuk menilai seberapa baik model dalam memprediksi target, yaitu tingkat keparahan kanker, berdasarkan data uji yang belum pernah dilihat oleh model sebelumnya. Karena permasalahan yang diangkat merupakan regresi, maka digunakan beberapa metrik yang umum dalam regresi, yaitu _Mean Absolute Error_ (MAE), _Root Mean Squared Error_ (RMSE), dan _R² Score_. Masing-masing metrik ini memberikan sudut pandang yang berbeda dalam menilai akurasi prediksi model, baik dari segi rata-rata kesalahan, sensitivitas terhadap _outlier_, maupun proporsi variansi yang berhasil dijelaskan oleh model.
 
 Metrik Evaluasi:
-1. **`Mean Absolute Error (MAE)`**: MAE mengukur rata-rata absolut dari selisih antara nilai aktual dan prediksi.  
-   $$
-   \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
-   $$
+1. **`Mean Absolute Error (MAE)`**: MAE mengukur rata-rata absolut dari selisih antara nilai aktual dan prediksi.
+
+$$
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+$$
+   
 Metrik ini memberikan gambaran rata-rata kesalahan model tanpa memperhatikan arah kesalahan (positif atau negatif), sehingga mudah diinterpretasikan. Semakin kecil nilai MAE, semakin akurat prediksi model terhadap data aktual. 
     ```python
     # Random Forest MAE
@@ -257,9 +259,11 @@ Metrik ini memberikan gambaran rata-rata kesalahan model tanpa memperhatikan ara
     ```
     Cara kerja: MAE menghitung seberapa besar kesalahan rata-rata prediksi model terhadap data aktual, tanpa mempertimbangkan arah kesalahan.
 2. **`Root Mean Squared Error (RMSE)`**: RMSE mengukur akar dari rata-rata kuadrat selisih antara nilai aktual dan prediksi.
-    $$
-    \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
-    $$
+
+$$
+\text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
+$$
+
 RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratkan. Nilai lebih kecil menunjukkan prediksi lebih akurat secara keseluruhan. Oleh karena itu, RMSE sangat berguna untuk mendeteksi model yang sensitif terhadap _outlier_.
     ```python
         # Random Forest RMSE
@@ -272,9 +276,11 @@ RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratk
     Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
 
 3. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
-    $$
-    R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 }
-    $$
+   
+$$
+R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 }
+$$
+
 Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
     ```python
         # Random Forest R² Score
@@ -288,10 +294,12 @@ Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukka
 
 Evaluasi model akhir dengan menggunakan _dataset test_:
 1. Random Forest Regressor
-     | Model                    | MAE  |  RMSE | R² Score |
-        |--------------------------|------|-------|----------|
-        | Random Forest Regressor  |0.2024|0.2532 |0.9549    |
-    Model Random Forest menunjukkan performa yang sangat baik pada data _test_, dengan nilai R² mendekati 1 yang menandakan bahwa model mampu menjelaskan 95.49% variasi dari data target. Nilai MAE sebesar 0.2024 berarti bahwa, secara rata-rata, prediksi model berbeda sekitar 0.2 poin dari nilai keparahan aktual pada skala yang digunakan. Nilai RMSE sebesar 0.2532 menunjukkan rata-rata jarak prediksi model terhadap nilai aktual, dengan penekanan pada kesalahan yang besar.
+   
+    | Model                    | MAE  |  RMSE | R² Score |
+    |--------------------------|------|-------|----------|
+    | Random Forest Regressor  |0.2024|0.2532 |0.9549    |
+
+Model Random Forest menunjukkan performa yang sangat baik pada data _test_, dengan nilai R² mendekati 1 yang menandakan bahwa model mampu menjelaskan 95.49% variasi dari data target. Nilai MAE sebesar 0.2024 berarti bahwa, secara rata-rata, prediksi model berbeda sekitar 0.2 poin dari nilai keparahan aktual pada skala yang digunakan. Nilai RMSE sebesar 0.2532 menunjukkan rata-rata jarak prediksi model terhadap nilai aktual, dengan penekanan pada kesalahan yang besar.
 ![ActualVSPredicted_RF](./assets/ap_rf.png)
 Grafik ini menunjukkan hubungan antara nilai aktual dan prediksi model. Titik-titik yang mendekati garis merah putus-putus (garis identitas) menandakan bahwa prediksi model cukup akurat.
 ![ResidualPlot_RF](./assets/rr_rf.png)
@@ -299,7 +307,7 @@ Plot residual menampilkan sebaran kesalahan prediksi terhadap nilai prediksi. Re
 ![ResidualDistribution_RF](./assets/rd_rf.png)
 Histogram residual mendekati distribusi normal simetris dengan rata-rata mendekati nol. Ini menunjukkan bahwa kesalahan prediksi model bersifat acak dan tidak terdistribusi secara berat sebelah.
 
-2. XGBoost Regressor
+3. XGBoost Regressor
      | Model                    | MAE  |  RMSE | R² Score |
             |--------------------------|------|-------|----------|
             | XGBoost Regressor  |0.0628|0.0788 |0.9956    |
@@ -311,7 +319,7 @@ Sebaran residual XGBoost menunjukkan pola yang acak dan simetris di sekitar gari
 ![ResidualDistribution_XG](./assets/rd_xg.png)
 Histogram residual dari model XGBoost menunjukkan bentuk distribusi yang sangat mendekati distribusi normal, dengan puncak di sekitar nol. Hal ini memperkuat bukti bahwa kesalahan prediksi model bersifat acak dan tidak condong ke satu sisi, serta lebih terkonsentrasi dibanding model Random Forest, yang distribusinya sedikit lebih tersebar.
 
-3. LightGBM Regressor
+4. LightGBM Regressor
      | Model                    | MAE  |  RMSE | R² Score |
         |--------------------------|------|-------|----------|
         | LightGBM  |0.0582|0.0732 |0.9962    |
