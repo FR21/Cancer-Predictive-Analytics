@@ -22,7 +22,7 @@ Proyek ini bertujuan untuk mengembangkan model prediksi keparahan kanker menggun
 - Melakukan eksperimen dengan beberapa algoritma tingkat lanjut untuk menemukan model terbaik dalam memprediksi skor keparahan kanker, serta memvisualisasikan hasil evaluasi model untuk analisis residual yang lebih dalam.
 
 ### Solution Statement
-- Mengimplementasikan model regresi berbasis _Machine Learning_ tingkat lanjut, seperti _Random Forest Regressor_, _XGBoost Regressor_, dan _LightGBM Regressor_ untuk memprediksi tingkat keparahan kanker berdasarkan integrasi data dari faktor genetik, gaya hidup, dan lingkungan dengan akurasi yang tinggi.
+- Mengimplementasikan model regresi berbasis _Machine Learning_ tingkat lanjut, seperti Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor untuk memprediksi tingkat keparahan kanker berdasarkan integrasi data dari faktor genetik, gaya hidup, dan lingkungan dengan akurasi yang tinggi.
 - Mengintegrasikan berbagai fitur penting dari domain genetik, gaya hidup, dan lingkungan dengan analisis korelasi berbasis statistik untuk memastikan input yang diberikan ke model relevan dan berkualitas tinggi.
 - Mengoptimalkan performa model dengan _hyperparameter tuning_ pada algoritma yang dipilih dengan menggunakan teknik _RandomizedSearchCV_, guna meningkatkan akurasi prediksi dan mengurangi _error_. Dilakukan juga visualisasi dan evaluasi mendalam, termasuk _plotting_ residual, p_redicted vs actual scores_, dan distribusi _error_ guna memahami perilaku model dan mengidentifikasi bias atau pola ketidaksesuaian dalam hasil prediksi.
 
@@ -181,7 +181,7 @@ Pada tahap ini, dilakukan pembangunan model _machine learning_ untuk memprediksi
 
 Tahapan pembuatan model yang dilakukan adalah sebagai berikut:
 
-1. Inisialisasi model: 
+1. **`Inisialisasi Model`**: 
 Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor. Masing-masing model dikonfigurasi dengan parameter tertentu yang telah disesuaikan untuk meningkatkan performa model terhadap data yang digunakan.
     - Random Forest Regressor
         Model ini cocok untuk menangani data non-linear dan memiliki ketahanan terhadap overfitting dalam jumlah fitur yang besar.
@@ -212,7 +212,7 @@ Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Ra
        -  max_depth=6: Mengontrol kompleksitas setiap pohon. Nilai ini membantu menjaga keseimbangan antara bias dan varians.
         - random_state=42: Digunakan untuk memastikan hasil yang konsisten di setiap eksekusi.
         
-2. Pelatihan Model: 
+2. **`Pelatihan Model`**: 
 Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (training) ketiga model regresi, yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor — menggunakan data pelatihan yang telah dipersiapkan (X_train dan y_train).
     - Random Forest Regressor
         ```python
@@ -226,7 +226,7 @@ Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (tra
          ```python
         lgb_model.fit(X_train, y_train)
         ```
-3. Evaluasi Model:
+3. **`Evaluasi Model`**:
 Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi — Random Forest, XGBoost, dan LightGBM — menggunakan data pelatihan. Evaluasi dilakukan menggunakan tiga metrik utama: Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), dan R² Score, yang mengukur akurasi prediksi model terhadap data.
     Hasil Evaluasi pada Data Pelatihan:
    
@@ -236,7 +236,7 @@ Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi — Random
     | XGBoost Regressor        |0.0496|0.0627 |0.9973    |
     | LightGBM Regressor       |0.0516|0.0649 |0.9971    |
      
-Berdasarkan hasil evaluasi, **XGBoost Regressor** menunjukkan performa terbaik dengan nilai MAE dan RMSE paling rendah, serta _R² Score_ tertinggi (0.9973). Hal ini menunjukkan bahwa model ini paling mampu mempelajari pola dari data pelatihan secara efektif dan memberikan prediksi yang sangat akurat. Meskipun LightGBM juga memberikan hasil yang kompetitif, XGBoost sedikit lebih unggul dari sisi akurasi. Oleh karena itu, XGBoost Regressor dipilih sebagai model terbaik.
+    Berdasarkan hasil evaluasi, **XGBoost Regressor** menunjukkan performa terbaik dengan nilai MAE dan RMSE paling rendah, serta _R² Score_ tertinggi (0.9973). Hal ini menunjukkan bahwa model ini paling mampu mempelajari pola dari data pelatihan secara efektif dan memberikan prediksi yang sangat akurat. Meskipun LightGBM juga memberikan hasil yang kompetitif, XGBoost sedikit lebih unggul dari sisi akurasi. Oleh karena itu, XGBoost Regressor dipilih sebagai model terbaik.
 
 ## Evaluation
 Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evaluasi terhadap performa masing-masing model yang telah dibangun. Evaluasi dilakukan dengan tujuan untuk menilai seberapa baik model dalam memprediksi target, yaitu tingkat keparahan kanker, berdasarkan data uji yang belum pernah dilihat oleh model sebelumnya. Karena permasalahan yang diangkat merupakan regresi, maka digunakan beberapa metrik yang umum dalam regresi, yaitu _Mean Absolute Error_ (MAE), _Root Mean Squared Error_ (RMSE), dan _R² Score_. Masing-masing metrik ini memberikan sudut pandang yang berbeda dalam menilai akurasi prediksi model, baik dari segi rata-rata kesalahan, sensitivitas terhadap _outlier_, maupun proporsi variansi yang berhasil dijelaskan oleh model.
@@ -300,7 +300,7 @@ Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evalu
     Cara kerja: R² membandingkan antara total kesalahan model dengan kesalahan baseline (rata-rata nilai aktual). Nilai 1 berarti prediksi sempurna, 0 berarti tidak lebih baik dari sekadar menebak rata-rata.
 
 ### Evaluasi model akhir dengan menggunakan _dataset test_
-1. Random Forest Regressor
+1. **`Random Forest Regressor`**
    
     | Model                    | MAE  |  RMSE | R² Score |
     |--------------------------|------|-------|----------|
@@ -320,7 +320,7 @@ Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evalu
     
     Histogram residual mendekati distribusi normal simetris dengan rata-rata mendekati nol. Ini menunjukkan bahwa kesalahan prediksi model bersifat acak dan tidak terdistribusi secara berat sebelah.
 
-2. XGBoost Regressor
+2. **`XGBoost Regressor`**
 
     | Model                    | MAE  |  RMSE | R² Score |
     |--------------------------|------|-------|----------|
@@ -340,7 +340,7 @@ Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evalu
     
     Histogram residual dari model XGBoost menunjukkan bentuk distribusi yang sangat mendekati distribusi normal, dengan puncak di sekitar nol. Hal ini memperkuat bukti bahwa kesalahan prediksi model bersifat acak dan tidak condong ke satu sisi, serta lebih terkonsentrasi dibanding model Random Forest, yang distribusinya sedikit lebih tersebar.
 
-3. LightGBM Regressor
+3. **`LightGBM Regressor`**
    
     | Model                    | MAE  |  RMSE | R² Score |
     |--------------------------|------|-------|----------|
@@ -360,3 +360,12 @@ Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evalu
     
     Histogram residual menunjukkan bentuk distribusi yang sangat simetris dan mengerucut di sekitar nol. Hal ini mengindikasikan bahwa kesalahan model sangat kecil dan tersebar secara seimbang.
 
+## Conclusion
+Dalam studi kasus ini, dilakukan serangkaian tahapan mulai dari _data understanding_, _data preprocessing_, _feature engineering_, standarisasi data, hingga pemodelan menggunakan tiga algoritma _machine learning_ yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor. Tujuannya adalah untuk membangun model prediktif yang mampu memperkirakan tingkat keparahan kanker berdasarkan berbagai faktor seperti genetik, gaya hidup, dan lingkungan.
+
+Tahap evaluasi dilakukan dengan menggunakan metrik MAE, RMSE, dan R² Score baik pada data latih maupun data uji. Hasil evaluasi menunjukkan bahwa:
+- Random Forest memberikan performa cukup baik namun relatif kurang akurat dibanding dua model lainnya.
+- XGBoost menunjukkan hasil prediksi yang sangat presisi dengan error kecil dan kemampuan generalisasi tinggi.
+- LightGBM berhasil mengungguli kedua model lainnya dengan nilai MAE, RMSE, dan R² Score terbaik, serta visualisasi residual yang paling ideal.
+
+Berdasarkan evaluasi metrik dan analisis visual, LightGBM Regressor dipilih sebagai model terbaik dalam proyek ini. Model ini tidak hanya memberikan akurasi tinggi, tetapi juga efisiensi dalam proses pelatihan, serta mampu menangani dataset kompleks dengan baik.
