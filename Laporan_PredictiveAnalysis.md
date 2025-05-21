@@ -241,7 +241,7 @@ Berdasarkan hasil evaluasi, **XGBoost Regressor** menunjukkan performa terbaik d
 ## Evaluation
 Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evaluasi terhadap performa masing-masing model yang telah dibangun. Evaluasi dilakukan dengan tujuan untuk menilai seberapa baik model dalam memprediksi target, yaitu tingkat keparahan kanker, berdasarkan data uji yang belum pernah dilihat oleh model sebelumnya. Karena permasalahan yang diangkat merupakan regresi, maka digunakan beberapa metrik yang umum dalam regresi, yaitu _Mean Absolute Error_ (MAE), _Root Mean Squared Error_ (RMSE), dan _R² Score_. Masing-masing metrik ini memberikan sudut pandang yang berbeda dalam menilai akurasi prediksi model, baik dari segi rata-rata kesalahan, sensitivitas terhadap _outlier_, maupun proporsi variansi yang berhasil dijelaskan oleh model.
 
-Metrik Evaluasi:
+**Metrik Evaluasi**:
 1. **`Mean Absolute Error (MAE)`**: MAE mengukur rata-rata absolut dari selisih antara nilai aktual dan prediksi.
 
     $$
@@ -261,7 +261,7 @@ Metrik Evaluasi:
 
     Cara kerja: MAE menghitung seberapa besar kesalahan rata-rata prediksi model terhadap data aktual, tanpa mempertimbangkan arah kesalahan.
 
-3. **`Root Mean Squared Error (RMSE)`**: RMSE mengukur akar dari rata-rata kuadrat selisih antara nilai aktual dan prediksi.
+2. **`Root Mean Squared Error (RMSE)`**: RMSE mengukur akar dari rata-rata kuadrat selisih antara nilai aktual dan prediksi.
 
     $$
     \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
@@ -280,7 +280,7 @@ Metrik Evaluasi:
     
     Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
 
-4. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
+3. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
    
     $$
     R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 }
@@ -299,7 +299,7 @@ Metrik Evaluasi:
 
     Cara kerja: R² membandingkan antara total kesalahan model dengan kesalahan baseline (rata-rata nilai aktual). Nilai 1 berarti prediksi sempurna, 0 berarti tidak lebih baik dari sekadar menebak rata-rata.
 
-Evaluasi model akhir dengan menggunakan _dataset test_:
+**Evaluasi model akhir dengan menggunakan _dataset test_**:
 1. Random Forest Regressor
    
     | Model                    | MAE  |  RMSE | R² Score |
