@@ -75,6 +75,7 @@ Distribusi stadium kanker dalam dataset ini mencakup Stadium 0 hingga Stadium 4,
 
 ### Visualisasi Correlation Matrix
 ![Correlation Matrix](./assets/Correlation_Matrix.png)
+
 Visualisasi _Correlation matrix_ menunjukkan hubungan antar variabel numerik dalam dataset. Terlihat bahwa _Target Severity Score_ memiliki korelasi positif tertinggi dengan _Genetic Risk_ (0.48), _Smoking_ (0.48), _Air Pollution_ (0.37), dan _Alcohol Use_ (0.36), yang mengindikasikan bahwa faktor-faktor tersebut cukup berpengaruh terhadap tingkat keparahan kanker. Sebaliknya, terdapat korelasi negatif antara _Treatment Cost_ dan _Target Severity Score_ (-0.47), yang bisa jadi mengindikasikan bahwa pasien dengan tingkat keparahan tinggi mendapatkan penanganan lebih awal atau tidak mampu menanggung biaya tinggi. Korelasi antar variabel lainnya cenderung lemah atau tidak signifikan.
 
 ### Visualisasi Relasi Fitur Numerik
@@ -172,3 +173,64 @@ Berikut ini adalah beberapa tahap yang dilakukan sebagai berikut:
     )
     ```
 
+## Modeling
+Pada tahap ini, dilakukan pembangunan model _machine learning_ untuk memprediksi tingkat keparahan kanker berdasarkan kombinasi fitur numerik dan kategorikal yang telah diproses sebelumnya. Pemodelan dilakukan dengan pendekatan regresi karena variabel target bersifat kontinu. Tiga model regresi yang digunakan adalah sebagai berikut:
+- **`Random Forest`**: Metode _ensemble_ yang menggabungkan sejumlah pohon keputusan (decision tree) untuk menghasilkan prediksi akhir. Model ini menggunakan teknik _bootstrap aggregating_ (bagging) untuk meningkatkan stabilitas dan akurasi. Kelebihan dari model ini adalah dapat menangkap pola non-linear yang kompleks tanpa perlu banyak _preprocessing_, tahan terhadap _overfitting_ pada dataset dengan jumlah fitur yang banyak, serta cukup _robust_ terhadap _missing value_ dan _outlier_ ringan. Akan tetapi, model ini memiliki kekurangan berupa interpretasi model menjadi lebih sulit karena banyaknya pohon, serta konsumsi memori dan waktu pelatihan relatif besar, terutama untuk dataset yang lebih besar.
+- **`XGBoost`**: Teknik _boosting_ yang menggunakan pendekatan gradien untuk memperbaiki kesalahan prediksi secara bertahap. Model ini juga dilengkapi dengan mekanisme regularisasi untuk mengontrol kompleksitas. Kelebihan dari model ini adalah performa tinggi terutama pada masalah tabular serta terdapat opsi regularisasi yang membantu mengurangi risiko _overfitting_. Model ini juga Mendukung _early stopping_ dan teknik _pruning_ yang efisien. Akan tetapi, model ini memiliki kekurangan berupa _hyperparameter tuning_ yang cukup sensitif dan memerlukan eksperimen yang cermat, dan proses pelatihan relatif lambat jika dibandingkan dengan LightGBM.
+- **`LightGBM`**: Algoritma _boosting_ berbasis histogram yang dikembangkan untuk kecepatan dan efisiensi. Model ini membagi data berdasarkan _leaf-wise growth_, bukan _level-wise_ seperti XGBoost, yang membuatnya lebih cepat untuk dataset besar. Kelebihan dari model ini adalah waktu pelatihan jauh lebih cepat dibandingkan model _boosting_ lainnya, dapat menangani _dataset_ skala besar dengan efisien, serta mendukung pengolahan paralel dan GPU. Kekurangan dari model ini adalah cenderung lebih sensitif terhadap distribusi fitur dan _outlier_ ekstrim dan bisa mengalami _overfitting_ jika tidak dilakukan _tuning_ dengan benar.
+
+Tahapan pembuatan model yang dilakukan adalah sebagai berikut:
+1. Inisialisasi model
+Pada tahap ini, dilakukan inisialisasi dan pelatihan tiga model regresi yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor. Masing-masing model dikonfigurasi dengan parameter tertentu yang telah disesuaikan untuk meningkatkan performa model terhadap data yang digunakan.
+    - Random Forest Regressor
+        Model ini cocok untuk menangani data non-linear dan memiliki ketahanan terhadap overfitting dalam jumlah fitur yang besar.
+        ```python
+        rf_model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
+        ```
+        - n_estimators=100: Menentukan jumlah pohon keputusan (decision trees) yang akan digunakan dalam _ensemble_. Semakin banyak pohon, biasanya semakin stabil hasilnya, namun memerlukan waktu pelatihan yang lebih lama.
+        - max_depth=10: Batas kedalaman maksimum setiap pohon untuk menghindari model menjadi terlalu kompleks (overfitting).
+        - random_state=42: Digunakan untuk memastikan hasil yang konsisten di setiap eksekusi.
+        
+    - XGBoost Regressor
+        XGBoost terkenal karena efisiensinya dalam menangani data tabular dan sering digunakan dalam kompetisi _machine learning_.
+        ```python
+        xgb_model = XGBRegressor(n_estimators=200, learning_rate=0.1, max_depth=6, random_state=42)
+        ```
+        - n_estimators=200: Jumlah _boosting rounds_ atau jumlah pohon yang dibangun secara berurutan.
+        - learning_rate=0.1: Ukuran langkah untuk memperbarui prediksi pada setiap iterasi. Nilai yang lebih kecil menghasilkan proses pelatihan yang lebih lambat namun akurat.
+       -  max_depth=6: Mengontrol kompleksitas setiap pohon. Nilai ini membantu menjaga keseimbangan antara bias dan varians.
+        - random_state=42: Digunakan untuk memastikan hasil yang konsisten di setiap eksekusi.
+        
+    - LightGBM Regressor
+        LightGBM dirancang untuk efisiensi dan kecepatan, dan sangat optimal untuk dataset besar dengan banyak fitur.
+        ```python
+        lgb_model = LGBMRegressor(n_estimators=200, learning_rate=0.1, max_depth=6, random_state=42)
+        ```
+        - n_estimators=200: Jumlah _boosting rounds_ atau jumlah pohon yang dibangun secara berurutan.
+        - learning_rate=0.1: Ukuran langkah untuk memperbarui prediksi pada setiap iterasi. Nilai yang lebih kecil menghasilkan proses pelatihan yang lebih lambat namun akurat.
+       -  max_depth=6: Mengontrol kompleksitas setiap pohon. Nilai ini membantu menjaga keseimbangan antara bias dan varians.
+        - random_state=42: Digunakan untuk memastikan hasil yang konsisten di setiap eksekusi.
+2. Pelatihan Model
+Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (training) ketiga model regresi, yaitu Random Forest Regressor, XGBoost Regressor, dan LightGBM Regressor — menggunakan data pelatihan yang telah dipersiapkan (X_train dan y_train).
+    - Random Forest Regressor
+        ```python
+        rf_model.fit(X_train, y_train)
+        ```
+    - XGBoost Regressor
+         ```python
+        xgb_model.fit(X_train, y_train)
+        ```
+    - LightGBM Regressor
+         ```python
+        lgb_model.fit(X_train, y_train)
+        ```
+3. Evaluasi Model
+Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi — Random Forest, XGBoost, dan LightGBM — menggunakan data pelatihan. Evaluasi dilakukan menggunakan tiga metrik utama: Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), dan R² Score, yang mengukur akurasi prediksi model terhadap data.
+
+    Hasil Evaluasi pada Data Pelatihan
+    | Model | MAE |  RMSE |  R² Score |
+        |--------------|--------------|--------------|--------------|
+        | Random Forest Regressor|0.1653|0.2074|0.9702|
+        | XGBoost Regressor|0.0496|0.0627|0.9973|
+        | LightGBM Regressor|0.0516|0.0649|0.9971|
+    Berdasarkan hasil evaluasi, **XGBoost Regressor** menunjukkan performa terbaik dengan nilai MAE dan RMSE paling rendah, serta _R² Score_ tertinggi (0.9973). Hal ini menunjukkan bahwa model ini paling mampu mempelajari pola dari data pelatihan secara efektif dan memberikan prediksi yang sangat akurat. Meskipun LightGBM juga memberikan hasil yang kompetitif, XGBoost sedikit lebih unggul dari sisi akurasi. Oleh karena itu, XGBoost Regressor dipilih sebagai model terbaik.
