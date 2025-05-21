@@ -46,8 +46,7 @@ Link Dataset: https://www.kaggle.com/datasets/zahidmughal2343/global-cancer-pati
 - **`Obesity_Level`** : Tingkat obesitas pasien, dalam skala 0-10.
 - **`Cancer_Type`** : 	Jenis kanker yang diderita oleh pasien (contoh: Lung, Breast, dll).
 - **`Cancer_Stage`** : Tahapan kanker (contoh: Stage I, Stage II, Stage III, Stage IV).
-- **`Treatment_Cost_USD`** :
-- **``** : 	Perkiraan total biaya pengobatan yang telah dikeluarkan (dalam USD).
+- **`Treatment_Cost_USD`** : Perkiraan total biaya pengobatan yang telah dikeluarkan (dalam USD).
 - **`Survival_Years`** : 	Estimasi waktu bertahan hidup pasien setelah diagnosis (dalam tahun).
 - **`Target_Severity_Score`**: 	Skor target yang menunjukkan tingkat keparahan kanker (nilai kontinu). Merupakan variabel target (label) dalam prediksi.
 
