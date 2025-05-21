@@ -51,7 +51,7 @@ Link Dataset: https://www.kaggle.com/datasets/zahidmughal2343/global-cancer-pati
 - **`Target_Severity_Score`**: 	Skor target yang menunjukkan tingkat keparahan kanker (nilai kontinu). Merupakan variabel target (label) dalam prediksi.
 
 ### Visualisasi Distribusi Data Numerik
-![Distribusi Numerik](./assets/Numerical_Visualization.png)
+![Numerical_Distribution](./assets/Numerical_Visualization.png)
 Distribusi variabel numerik dalam dataset ini memberikan gambaran awal yang penting untuk memahami karakteristik data yang akan digunakan dalam pemodelan. Variabel _Age_ menunjukkan distribusi yang relatif merata antara rentang usia 20 hingga 90 tahun, yang mengindikasikan bahwa dataset ini mencakup pasien dari berbagai kelompok usia tanpa dominasi signifikan pada kelompok tertentu. Distribusi _Year_ sebagai penanda waktu pencatatan data tampak merata antara tahun 2015 hingga 2024, menandakan bahwa data dikumpulkan secara konsisten selama rentang waktu satu dekade.
 
 Pada variabel _Genetic_Risk_, _Air_Pollution_, _Alcohol_Use_, _Smoking_, dan _Obesity_Level_, distribusi tampak menyebar merata dari nilai 0 hingga 10. Ini menunjukkan bahwa tingkat risiko genetik, paparan polusi udara, konsumsi alkohol, kebiasaan merokok, serta tingkat obesitas bervariasi secara signifikan antar pasien, tanpa adanya _outlier_ yang ekstrem. Hal ini penting karena menunjukkan keragaman yang cukup pada faktor risiko yang akan dianalisis terhadap tingkat keparahan kanker.
@@ -59,3 +59,16 @@ Pada variabel _Genetic_Risk_, _Air_Pollution_, _Alcohol_Use_, _Smoking_, dan _Ob
 Sementara itu, _Treatment_Cost_USD_ atau biaya pengobatan memperlihatkan sebaran yang cenderung merata dari angka 0 hingga mendekati 100.000 USD. Ini merefleksikan variasi yang tinggi dalam pembiayaan medis pasien, kemungkinan bergantung pada jenis kanker, stadium, dan lokasi geografis. Variabel _Survival_Years_, yang menunjukkan estimasi tahun bertahan hidup setelah diagnosis, juga tersebar merata antara 0 hingga 10 tahun, mencerminkan keberagaman prognosis dari masing-masing pasien.
 
 Yang paling menarik adalah distribusi target atau label prediksi, yaitu Target_Severity_Score. Variabel ini memiliki distribusi menyerupai kurva normal (distribusi Gaussian), dengan sebagian besar pasien memiliki skor keparahan di sekitar nilai tengah (mean). Distribusi ini sangat ideal untuk masalah regresi karena dapat membantu model untuk belajar secara lebih stabil dan akurat terhadap variasi tingkat keparahan kanker berdasarkan fitur-fitur yang tersedia.
+
+### Visualisasi Distribusi Data Kategorikal
+![Categorical_Gender](./assets/Categorical_Gender.png)
+Visualisasi distribusi gender menunjukkan persebaran yang hampir merata antara ketiga kategori gender dalam data pasien kanker. Persentase pasien laki-laki tercatat sebesar 33,6%, diikuti oleh pasien perempuan sebesar 33,4%, dan kategori lainnya sebesar 33%. Distribusi yang relatif seimbang ini mencerminkan keberagaman gender pada data yang digunakan, sehingga memberikan dasar representasi yang adil dalam proses analisis lebih lanjut terhadap faktor-faktor yang memengaruhi tingkat keparahan kanker.
+
+![Categorical_Country](./assets/Categorical_Country_Region.png)
+Visualisasi distribusi berdasarkan region menunjukkan bahwa data pasien kanker tersebar cukup merata di antara sepuluh negara, yaitu Australia, UK, USA, India, Germany, Russia, Brazil, Pakistan, China, dan Canada. Masing-masing negara memiliki proporsi pasien yang berada dalam rentang 9,7% hingga 10,2%. Persebaran yang relatif merata ini mengindikasikan bahwa dataset memiliki cakupan geografis yang luas dan representatif, sehingga memungkinkan analisis yang lebih komprehensif terhadap pengaruh faktor wilayah terhadap tingkat keparahan kanker.
+
+![Categorical_CancerType](./assets/Categorical_Cancer_Type.png)
+Distribusi jenis kanker dalam dataset ini menunjukkan persebaran yang cukup merata di antara delapan tipe kanker utama, yaitu: _Colon_ (Kanker Usus Besar), _Prostate_ (Kanker Prostat), _Leukemia_ (Kanker Darah), _Liver_ (Kanker Hati), _Skin_ (Kanker Kulit), _Cervical_ (Kanker Serviks), _Breast_ (Kanker Payudara), dan _Lung_ (Kanker Paru-Paru). Masing-masing jenis kanker memiliki proporsi yang berkisar antara 12,3% hingga 12,8%. Keseimbangan ini menunjukkan bahwa dataset dikurasi secara seimbang untuk tiap tipe kanker, sehingga sangat ideal untuk membangun model prediksi yang general dan tidak bias terhadap salah satu jenis kanker tertentu.
+
+![Categorical_CancerStage](./assets/Categorical_Cancer_Stage.png)
+Distribusi stadium kanker dalam dataset ini mencakup Stadium 0 hingga Stadium 4, yang menggambarkan tingkat keparahan atau progresi penyakit kanker pada pasien. Masing-masing stadium memiliki proporsi yang cukup merata, yaitu berada dalam kisaran 19,9% hingga 20,2%. Pemerataan distribusi ini menunjukkan bahwa data yang digunakan bersifat seimbang untuk setiap tingkat stadium, dari yang paling ringan (Stage 0) hingga yang paling berat (Stage 4). Hal ini penting untuk memastikan bahwa model yang dibangun tidak bias terhadap tingkat keparahan tertentu, sehingga performa prediksi dapat diandalkan di seluruh spektrum kondisi pasien.
