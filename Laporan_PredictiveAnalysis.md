@@ -258,6 +258,7 @@ Metrik ini memberikan gambaran rata-rata kesalahan model tanpa memperhatikan ara
     mae_lgb = mean_absolute_error(y_test, y_pred_lgb)
     ```
     Cara kerja: MAE menghitung seberapa besar kesalahan rata-rata prediksi model terhadap data aktual, tanpa mempertimbangkan arah kesalahan.
+
 2. **`Root Mean Squared Error (RMSE)`**: RMSE mengukur akar dari rata-rata kuadrat selisih antara nilai aktual dan prediksi.
 
 $$
@@ -300,34 +301,56 @@ Evaluasi model akhir dengan menggunakan _dataset test_:
     | Random Forest Regressor  |0.2024|0.2532 |0.9549    |
 
 Model Random Forest menunjukkan performa yang sangat baik pada data _test_, dengan nilai R² mendekati 1 yang menandakan bahwa model mampu menjelaskan 95.49% variasi dari data target. Nilai MAE sebesar 0.2024 berarti bahwa, secara rata-rata, prediksi model berbeda sekitar 0.2 poin dari nilai keparahan aktual pada skala yang digunakan. Nilai RMSE sebesar 0.2532 menunjukkan rata-rata jarak prediksi model terhadap nilai aktual, dengan penekanan pada kesalahan yang besar.
+
 ![ActualVSPredicted_RF](./assets/ap_rf.png)
+
 Grafik ini menunjukkan hubungan antara nilai aktual dan prediksi model. Titik-titik yang mendekati garis merah putus-putus (garis identitas) menandakan bahwa prediksi model cukup akurat.
+
 ![ResidualPlot_RF](./assets/rr_rf.png)
+
 Plot residual menampilkan sebaran kesalahan prediksi terhadap nilai prediksi. Residual tersebar secara acak di sekitar nol, menandakan bahwa model tidak memiliki pola sistematik yang menunjukkan bias.
+
 ![ResidualDistribution_RF](./assets/rd_rf.png)
+
 Histogram residual mendekati distribusi normal simetris dengan rata-rata mendekati nol. Ini menunjukkan bahwa kesalahan prediksi model bersifat acak dan tidak terdistribusi secara berat sebelah.
 
-3. XGBoost Regressor
-     | Model                    | MAE  |  RMSE | R² Score |
-            |--------------------------|------|-------|----------|
-            | XGBoost Regressor  |0.0628|0.0788 |0.9956    |
-    Dengan MAE sebesar 0.0628, model XGBoost hanya memiliki rata-rata deviasi sekitar 0.06 poin dari nilai sebenarnya. Ini menandakan bahwa prediksi cukup konsisten dan tidak terlalu meleset. RMSE sebesar 0.0788 juga menunjukkan bahwa model XGBoost memiliki kesalahan prediksi yang rendah dan stabil. Dengan skor R² sebesar 0.9956, model XGBoost mampu menjelaskan 99.56% variasi dalam data. Hal ini menandakan bahwa model sangat baik dalam merepresentasikan hubungan antara fitur dan target.
+2. XGBoost Regressor
+
+    | Model                    | MAE  |  RMSE | R² Score |
+    |--------------------------|------|-------|----------|
+    | XGBoost Regressor  |0.0628|0.0788 |0.9956    |
+
+Dengan MAE sebesar 0.0628, model XGBoost hanya memiliki rata-rata deviasi sekitar 0.06 poin dari nilai sebenarnya. Ini menandakan bahwa prediksi cukup konsisten dan tidak terlalu meleset. RMSE sebesar 0.0788 juga menunjukkan bahwa model XGBoost memiliki kesalahan prediksi yang rendah dan stabil. Dengan skor R² sebesar 0.9956, model XGBoost mampu menjelaskan 99.56% variasi dalam data. Hal ini menandakan bahwa model sangat baik dalam merepresentasikan hubungan antara fitur dan target.
+
 ![ActualVSPredicted_XG](./assets/ap_xg.png)
+
 Grafik ini memperlihatkan korelasi antara nilai aktual dan hasil prediksi model. Sebagian besar titik berada sangat dekat dengan garis identitas, menandakan bahwa prediksi XGBoost sangat akurat dan lebih mendekati nilai sebenarnya dibanding model Random Forest.
+
 ![ResidualPlot_XG](./assets/rr_xg.png)
+
 Sebaran residual XGBoost menunjukkan pola yang acak dan simetris di sekitar garis nol. Tidak terdapat tren atau pola tertentu, yang mengindikasikan bahwa model ini memiliki kesalahan prediksi yang konsisten tanpa bias sistematis, lebih stabil dibanding Random Forest yang menunjukkan sedikit penyebaran residual lebih luas.
+
 ![ResidualDistribution_XG](./assets/rd_xg.png)
+
 Histogram residual dari model XGBoost menunjukkan bentuk distribusi yang sangat mendekati distribusi normal, dengan puncak di sekitar nol. Hal ini memperkuat bukti bahwa kesalahan prediksi model bersifat acak dan tidak condong ke satu sisi, serta lebih terkonsentrasi dibanding model Random Forest, yang distribusinya sedikit lebih tersebar.
 
-4. LightGBM Regressor
-     | Model                    | MAE  |  RMSE | R² Score |
-        |--------------------------|------|-------|----------|
-        | LightGBM  |0.0582|0.0732 |0.9962    |
-    MAE yang sangat rendah menunjukkan bahwa rata-rata selisih antara nilai prediksi dan aktual sangat kecil, menandakan model cukup presisi. RMSE lebih sensitif terhadap kesalahan besar, dan nilai yang rendah memperkuat bahwa model jarang membuat kesalahan besar dalam prediksi. R² Score mendekati 1, menandakan bahwa hampir seluruh variasi dalam data target berhasil dijelaskan oleh model, bahkan lebih baik daripada XGBoost maupun Random Forest.
+3. LightGBM Regressor
+   
+    | Model                    | MAE  |  RMSE | R² Score |
+    |--------------------------|------|-------|----------|
+    | LightGBM  |0.0582|0.0732 |0.9962    |
+
+ MAE yang sangat rendah menunjukkan bahwa rata-rata selisih antara nilai prediksi dan aktual sangat kecil, menandakan model cukup presisi. RMSE lebih sensitif terhadap kesalahan besar, dan nilai yang rendah memperkuat bahwa model jarang membuat kesalahan besar dalam prediksi. R² Score mendekati 1, menandakan bahwa hampir seluruh variasi dalam data target berhasil dijelaskan oleh model, bahkan lebih baik daripada XGBoost maupun Random Forest.
+ 
 ![ActualVSPredicted_LG](./assets/ap_lg.png)
+
 Sebagian besar titik berada sangat rapat mengikuti garis identitas, menunjukkan bahwa prediksi LightGBM hampir sempurna. Akurasi prediksinya lebih tinggi dibandingkan model lain yang diuji.
+
 ![ResidualPlot_LG](./assets/rr_lg.png)
+
 Residual tersebar secara acak di sekitar nol tanpa pola tertentu. Hal ini menunjukkan bahwa kesalahan prediksi bersifat acak dan tidak mengindikasikan bias sistematis yang mana menandakan model generalisasi dengan baik.
+
 ![ResidualDistribution_LG](./assets/rd_lg.png)
+
 Histogram residual menunjukkan bentuk distribusi yang sangat simetris dan mengerucut di sekitar nol. Hal ini mengindikasikan bahwa kesalahan model sangat kecil dan tersebar secara seimbang.
 
