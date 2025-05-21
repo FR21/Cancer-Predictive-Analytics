@@ -371,3 +371,7 @@ Tahap evaluasi dilakukan dengan menggunakan metrik MAE, RMSE, dan R² Score baik
 - LightGBM berhasil mengungguli kedua model lainnya dengan nilai MAE, RMSE, dan R² Score terbaik, serta visualisasi residual yang paling ideal.
 
 Berdasarkan evaluasi metrik dan analisis visual, LightGBM Regressor dipilih sebagai model terbaik dalam proyek ini. Model ini tidak hanya memberikan akurasi tinggi, tetapi juga efisiensi dalam proses pelatihan, serta mampu menangani dataset kompleks dengan baik.
+
+$$
+\text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
+$$
