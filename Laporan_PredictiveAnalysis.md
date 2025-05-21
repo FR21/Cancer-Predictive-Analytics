@@ -283,7 +283,9 @@ $$
 
 3. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
 
-    <img src="https://latex.codecogs.com/svg.image?\dpi{120}&space;\bg{transparent}&space;\color{White}&space;R^2&space;=&space;1&space;-&space;\frac{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\hat{y}_i)^2&space;}{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\bar{y})^2&space;}">
+    <div style="text-align:center;">
+      <img src="https://latex.codecogs.com/svg.image?\dpi{120}&space;\bg{transparent}&space;\color{White}&space;R^2&space;=&space;1&space;-&space;\frac{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\hat{y}_i)^2&space;}{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\bar{y})^2&space;}" alt="R Squared Equation">
+    </div>
 
      Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
         
