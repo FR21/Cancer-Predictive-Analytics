@@ -238,6 +238,88 @@ Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi — Random
      
 Berdasarkan hasil evaluasi, **XGBoost Regressor** menunjukkan performa terbaik dengan nilai MAE dan RMSE paling rendah, serta _R² Score_ tertinggi (0.9973). Hal ini menunjukkan bahwa model ini paling mampu mempelajari pola dari data pelatihan secara efektif dan memberikan prediksi yang sangat akurat. Meskipun LightGBM juga memberikan hasil yang kompetitif, XGBoost sedikit lebih unggul dari sisi akurasi. Oleh karena itu, XGBoost Regressor dipilih sebagai model terbaik.
 
-$$
+## Evaluation
+Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evaluasi terhadap performa masing-masing model yang telah dibangun. Evaluasi dilakukan dengan tujuan untuk menilai seberapa baik model dalam memprediksi target, yaitu tingkat keparahan kanker, berdasarkan data uji yang belum pernah dilihat oleh model sebelumnya. Karena permasalahan yang diangkat merupakan regresi, maka digunakan beberapa metrik yang umum dalam regresi, yaitu _Mean Absolute Error_ (MAE), _Root Mean Squared Error_ (RMSE), dan _R² Score_. Masing-masing metrik ini memberikan sudut pandang yang berbeda dalam menilai akurasi prediksi model, baik dari segi rata-rata kesalahan, sensitivitas terhadap _outlier_, maupun proporsi variansi yang berhasil dijelaskan oleh model.
+
+Metrik Evaluasi:
+1. **`Mean Absolute Error (MAE)`**: MAE mengukur rata-rata absolut dari selisih antara nilai aktual dan prediksi.  
+   $$
    \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
-$$
+   $$
+Metrik ini memberikan gambaran rata-rata kesalahan model tanpa memperhatikan arah kesalahan (positif atau negatif), sehingga mudah diinterpretasikan. Semakin kecil nilai MAE, semakin akurat prediksi model terhadap data aktual. 
+    ```python
+    # Random Forest MAE
+    mae_rf = mean_absolute_error(y_test, y_pred_rf)
+    # XGBoost MAE
+    mae_xgb = mean_absolute_error(y_test, y_pred_xgb)
+    # LightGBM MAE
+    mae_lgb = mean_absolute_error(y_test, y_pred_lgb)
+    ```
+    Cara kerja: MAE menghitung seberapa besar kesalahan rata-rata prediksi model terhadap data aktual, tanpa mempertimbangkan arah kesalahan.
+2. **`Root Mean Squared Error (RMSE)`**: RMSE mengukur akar dari rata-rata kuadrat selisih antara nilai aktual dan prediksi.
+    $$
+    \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
+    $$
+RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratkan. Nilai lebih kecil menunjukkan prediksi lebih akurat secara keseluruhan. Oleh karena itu, RMSE sangat berguna untuk mendeteksi model yang sensitif terhadap _outlier_.
+    ```python
+        # Random Forest RMSE
+        rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+        # XGBoost RMSE
+        rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
+        # LightGBM RMSE
+        rmse_lgb = np.sqrt(mean_squared_error(y_test, y_pred_lgb))
+    ```
+    Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
+
+3. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
+    $$
+    R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 }
+    $$
+Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
+    ```python
+        # Random Forest R² Score
+        r2_rf = r2_score(y_test, y_pred_rf)
+        # XGBoost R² Score
+        r2_xgb = r2_score(y_test, y_pred_xgb)
+        # LightGBM R² Score
+        r2_lgb = r2_score(y_test, y_pred_lgb)
+    ```
+    Cara kerja: R² membandingkan antara total kesalahan model dengan kesalahan baseline (rata-rata nilai aktual). Nilai 1 berarti prediksi sempurna, 0 berarti tidak lebih baik dari sekadar menebak rata-rata.
+
+Evaluasi model akhir dengan menggunakan _dataset test_:
+1. Random Forest Regressor
+     | Model                    | MAE  |  RMSE | R² Score |
+        |--------------------------|------|-------|----------|
+        | Random Forest Regressor  |0.2024|0.2532 |0.9549    |
+    Model Random Forest menunjukkan performa yang sangat baik pada data _test_, dengan nilai R² mendekati 1 yang menandakan bahwa model mampu menjelaskan 95.49% variasi dari data target. Nilai MAE sebesar 0.2024 berarti bahwa, secara rata-rata, prediksi model berbeda sekitar 0.2 poin dari nilai keparahan aktual pada skala yang digunakan. Nilai RMSE sebesar 0.2532 menunjukkan rata-rata jarak prediksi model terhadap nilai aktual, dengan penekanan pada kesalahan yang besar.
+![ActualVSPredicted_RF](./assets/ap_rf.png)
+Grafik ini menunjukkan hubungan antara nilai aktual dan prediksi model. Titik-titik yang mendekati garis merah putus-putus (garis identitas) menandakan bahwa prediksi model cukup akurat.
+![ResidualPlot_RF](./assets/rr_rf.png)
+Plot residual menampilkan sebaran kesalahan prediksi terhadap nilai prediksi. Residual tersebar secara acak di sekitar nol, menandakan bahwa model tidak memiliki pola sistematik yang menunjukkan bias.
+![ResidualDistribution_RF](./assets/rd_rf.png)
+Histogram residual mendekati distribusi normal simetris dengan rata-rata mendekati nol. Ini menunjukkan bahwa kesalahan prediksi model bersifat acak dan tidak terdistribusi secara berat sebelah.
+
+2. XGBoost Regressor
+     | Model                    | MAE  |  RMSE | R² Score |
+            |--------------------------|------|-------|----------|
+            | XGBoost Regressor  |0.0628|0.0788 |0.9956    |
+    Dengan MAE sebesar 0.0628, model XGBoost hanya memiliki rata-rata deviasi sekitar 0.06 poin dari nilai sebenarnya. Ini menandakan bahwa prediksi cukup konsisten dan tidak terlalu meleset. RMSE sebesar 0.0788 juga menunjukkan bahwa model XGBoost memiliki kesalahan prediksi yang rendah dan stabil. Dengan skor R² sebesar 0.9956, model XGBoost mampu menjelaskan 99.56% variasi dalam data. Hal ini menandakan bahwa model sangat baik dalam merepresentasikan hubungan antara fitur dan target.
+![ActualVSPredicted_XG](./assets/ap_xg.png)
+Grafik ini memperlihatkan korelasi antara nilai aktual dan hasil prediksi model. Sebagian besar titik berada sangat dekat dengan garis identitas, menandakan bahwa prediksi XGBoost sangat akurat dan lebih mendekati nilai sebenarnya dibanding model Random Forest.
+![ResidualPlot_XG](./assets/rr_xg.png)
+Sebaran residual XGBoost menunjukkan pola yang acak dan simetris di sekitar garis nol. Tidak terdapat tren atau pola tertentu, yang mengindikasikan bahwa model ini memiliki kesalahan prediksi yang konsisten tanpa bias sistematis, lebih stabil dibanding Random Forest yang menunjukkan sedikit penyebaran residual lebih luas.
+![ResidualDistribution_XG](./assets/rd_xg.png)
+Histogram residual dari model XGBoost menunjukkan bentuk distribusi yang sangat mendekati distribusi normal, dengan puncak di sekitar nol. Hal ini memperkuat bukti bahwa kesalahan prediksi model bersifat acak dan tidak condong ke satu sisi, serta lebih terkonsentrasi dibanding model Random Forest, yang distribusinya sedikit lebih tersebar.
+
+3. LightGBM Regressor
+     | Model                    | MAE  |  RMSE | R² Score |
+        |--------------------------|------|-------|----------|
+        | LightGBM  |0.0582|0.0732 |0.9962    |
+    MAE yang sangat rendah menunjukkan bahwa rata-rata selisih antara nilai prediksi dan aktual sangat kecil, menandakan model cukup presisi. RMSE lebih sensitif terhadap kesalahan besar, dan nilai yang rendah memperkuat bahwa model jarang membuat kesalahan besar dalam prediksi. R² Score mendekati 1, menandakan bahwa hampir seluruh variasi dalam data target berhasil dijelaskan oleh model, bahkan lebih baik daripada XGBoost maupun Random Forest.
+![ActualVSPredicted_LG](./assets/ap_lg.png)
+Sebagian besar titik berada sangat rapat mengikuti garis identitas, menunjukkan bahwa prediksi LightGBM hampir sempurna. Akurasi prediksinya lebih tinggi dibandingkan model lain yang diuji.
+![ResidualPlot_LG](./assets/rr_lg.png)
+Residual tersebar secara acak di sekitar nol tanpa pola tertentu. Hal ini menunjukkan bahwa kesalahan prediksi bersifat acak dan tidak mengindikasikan bias sistematis yang mana menandakan model generalisasi dengan baik.
+![ResidualDistribution_LG](./assets/rd_lg.png)
+Histogram residual menunjukkan bentuk distribusi yang sangat simetris dan mengerucut di sekitar nol. Hal ini mengindikasikan bahwa kesalahan model sangat kecil dan tersebar secara seimbang.
+
