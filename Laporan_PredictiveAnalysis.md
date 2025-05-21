@@ -237,3 +237,7 @@ Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi — Random
     | LightGBM Regressor       |0.0516|0.0649 |0.9971    |
      
 Berdasarkan hasil evaluasi, **XGBoost Regressor** menunjukkan performa terbaik dengan nilai MAE dan RMSE paling rendah, serta _R² Score_ tertinggi (0.9973). Hal ini menunjukkan bahwa model ini paling mampu mempelajari pola dari data pelatihan secara efektif dan memberikan prediksi yang sangat akurat. Meskipun LightGBM juga memberikan hasil yang kompetitif, XGBoost sedikit lebih unggul dari sisi akurasi. Oleh karena itu, XGBoost Regressor dipilih sebagai model terbaik.
+
+$$
+   \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+$$
