@@ -283,20 +283,20 @@ $$
 
 3. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
 
-<img src="https://latex.codecogs.com/svg.image?R^2&space;=&space;1&space;-&space;\frac{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\hat{y}_i)^2&space;}{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\bar{y})^2&space;}">
+    <img src="https://latex.codecogs.com/svg.image?\dpi{120}&space;\bg{transparent}&space;\color{White}&space;R^2&space;=&space;1&space;-&space;\frac{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\hat{y}_i)^2&space;}{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\bar{y})^2&space;}">
 
- Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
-    
-```python
-    # Random Forest R² Score
-    r2_rf = r2_score(y_test, y_pred_rf)
-    # XGBoost R² Score
-    r2_xgb = r2_score(y_test, y_pred_xgb)
-    # LightGBM R² Score
-    r2_lgb = r2_score(y_test, y_pred_lgb)
- ```
-    
-Cara kerja: R² membandingkan antara total kesalahan model dengan kesalahan baseline (rata-rata nilai aktual). Nilai 1 berarti prediksi sempurna, 0 berarti tidak lebih baik dari sekadar menebak rata-rata.
+     Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
+        
+    ```python
+        # Random Forest R² Score
+        r2_rf = r2_score(y_test, y_pred_rf)
+        # XGBoost R² Score
+        r2_xgb = r2_score(y_test, y_pred_xgb)
+        # LightGBM R² Score
+        r2_lgb = r2_score(y_test, y_pred_lgb)
+     ```
+        
+    Cara kerja: R² membandingkan antara total kesalahan model dengan kesalahan baseline (rata-rata nilai aktual). Nilai 1 berarti prediksi sempurna, 0 berarti tidak lebih baik dari sekadar menebak rata-rata.
 
 ### Evaluasi model akhir dengan menggunakan _dataset test_
 1. **`Random Forest Regressor`**
