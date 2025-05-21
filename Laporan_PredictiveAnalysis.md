@@ -265,40 +265,40 @@ Setelah proses pelatihan model selesai, tahap selanjutnya adalah melakukan evalu
 
 2. **`Root Mean Squared Error (RMSE)`**: RMSE mengukur akar dari rata-rata kuadrat selisih antara nilai aktual dan prediksi.
 
-    $$
-    \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
-    $$
+$$
+\text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
+$$
     
-    RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratkan. Nilai lebih kecil menunjukkan prediksi lebih akurat secara keseluruhan. Oleh karena itu, RMSE sangat berguna untuk mendeteksi model yang sensitif terhadap _outlier_.
-           ```python
-                # Random Forest RMSE
-                rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
-                # XGBoost RMSE
-                rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
-                # LightGBM RMSE
-                rmse_lgb = np.sqrt(mean_squared_error(y_test, y_pred_lgb))
-           ```
+RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratkan. Nilai lebih kecil menunjukkan prediksi lebih akurat secara keseluruhan. Oleh karena itu, RMSE sangat berguna untuk mendeteksi model yang sensitif terhadap _outlier_.
+```python
+# Random Forest RMSE
+rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+# XGBoost RMSE
+rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
+# LightGBM RMSE
+rmse_lgb = np.sqrt(mean_squared_error(y_test, y_pred_lgb))
+```
             
-    Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
+Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
 
 3. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
    
-    $$
-    R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 }
-    $$
+$$
+R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 }
+$$
     
-    Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
+ Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
     
-    ```python
+```python
     # Random Forest R² Score
     r2_rf = r2_score(y_test, y_pred_rf)
     # XGBoost R² Score
     r2_xgb = r2_score(y_test, y_pred_xgb)
     # LightGBM R² Score
     r2_lgb = r2_score(y_test, y_pred_lgb)
-     ```
+ ```
     
-    Cara kerja: R² membandingkan antara total kesalahan model dengan kesalahan baseline (rata-rata nilai aktual). Nilai 1 berarti prediksi sempurna, 0 berarti tidak lebih baik dari sekadar menebak rata-rata.
+Cara kerja: R² membandingkan antara total kesalahan model dengan kesalahan baseline (rata-rata nilai aktual). Nilai 1 berarti prediksi sempurna, 0 berarti tidak lebih baik dari sekadar menebak rata-rata.
 
 ### Evaluasi model akhir dengan menggunakan _dataset test_
 1. **`Random Forest Regressor`**
