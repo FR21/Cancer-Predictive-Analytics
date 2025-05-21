@@ -230,9 +230,9 @@ Setelah proses inisialisasi model selesai, tahap selanjutnya adalah melatih (tra
 Pada tahap ini, dilakukan evaluasi awal terhadap ketiga model regresi — Random Forest, XGBoost, dan LightGBM — menggunakan data pelatihan. Evaluasi dilakukan menggunakan tiga metrik utama: Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), dan R² Score, yang mengukur akurasi prediksi model terhadap data.
 
     Hasil Evaluasi pada Data Pelatihan
-    | Model | MAE |  RMSE |  R² Score |
-        |--------------|--------------|--------------|--------------|
-        | Random Forest Regressor|0.1653|0.2074|0.9702|
-        | XGBoost Regressor|0.0496|0.0627|0.9973|
-        | LightGBM Regressor|0.0516|0.0649|0.9971|
+       | Model | MAE |  RMSE |  R² Score |
+       |--------------|--------------|--------------|--------------|
+       | Random Forest Regressor|0.1653|0.2074|0.9702|
+       | XGBoost Regressor|0.0496|0.0627|0.9973|
+       | LightGBM Regressor|0.0516|0.0649|0.9971|
     Berdasarkan hasil evaluasi, **XGBoost Regressor** menunjukkan performa terbaik dengan nilai MAE dan RMSE paling rendah, serta _R² Score_ tertinggi (0.9973). Hal ini menunjukkan bahwa model ini paling mampu mempelajari pola dari data pelatihan secara efektif dan memberikan prediksi yang sangat akurat. Meskipun LightGBM juga memberikan hasil yang kompetitif, XGBoost sedikit lebih unggul dari sisi akurasi. Oleh karena itu, XGBoost Regressor dipilih sebagai model terbaik.
