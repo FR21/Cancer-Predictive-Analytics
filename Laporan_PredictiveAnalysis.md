@@ -269,23 +269,19 @@ $$
 \text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }
 $$
     
-RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratkan. Nilai lebih kecil menunjukkan prediksi lebih akurat secara keseluruhan. Oleh karena itu, RMSE sangat berguna untuk mendeteksi model yang sensitif terhadap _outlier_.
-```python
-# Random Forest RMSE
-rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
-# XGBoost RMSE
-rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
-# LightGBM RMSE
-rmse_lgb = np.sqrt(mean_squared_error(y_test, y_pred_lgb))
-```
+  RMSE lebih sensitif terhadap _outlier_ dibanding MAE karena kesalahan dikuadratkan. Nilai lebih kecil menunjukkan prediksi lebih akurat secara keseluruhan. Oleh karena itu, RMSE sangat berguna untuk mendeteksi model yang sensitif terhadap _outlier_.
+  ```python
+  # Random Forest RMSE
+  rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+  # XGBoost RMSE
+  rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
+  # LightGBM RMSE
+  rmse_lgb = np.sqrt(mean_squared_error(y_test, y_pred_lgb))
+  ```
             
-Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
+  Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
 
 3. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
-   
-$$
-R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 }
-$$
     
  Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
     
@@ -372,3 +368,6 @@ Tahap evaluasi dilakukan dengan menggunakan metrik MAE, RMSE, dan R² Score baik
 Berdasarkan evaluasi metrik dan analisis visual, LightGBM Regressor dipilih sebagai model terbaik dalam proyek ini. Model ini tidak hanya memberikan akurasi tinggi, tetapi juga efisiensi dalam proses pelatihan, serta mampu menangani dataset kompleks dengan baik.
 
 
+$$
+R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 }
+$$
