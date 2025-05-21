@@ -282,7 +282,9 @@ $$
   Cara kerja: RMSE menghitung rata-rata kuadrat dari kesalahan prediksi, kemudian diakarkan untuk mendapatkan satuan yang sama dengan target. Semakin besar kesalahan, semakin tinggi nilainya.
 
 3. **`R² Score (Coefficient of Determination)`**: R² mengukur seberapa besar variansi dari data target yang dapat dijelaskan oleh model.
-    
+
+<img src="https://latex.codecogs.com/svg.image?R^2&space;=&space;1&space;-&space;\frac{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\hat{y}_i)^2&space;}{&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\bar{y})^2&space;}">
+
  Nilai R² berkisar antara 0 hingga 1, di mana nilai yang lebih tinggi menunjukkan bahwa model mampu menjelaskan variabilitas data target dengan lebih baik. Jika R² mendekati 1, berarti model hampir sepenuhnya mampu menjelaskan variasi dalam data.
     
 ```python
@@ -366,6 +368,3 @@ Tahap evaluasi dilakukan dengan menggunakan metrik MAE, RMSE, dan R² Score baik
 - LightGBM berhasil mengungguli kedua model lainnya dengan nilai MAE, RMSE, dan R² Score terbaik, serta visualisasi residual yang paling ideal.
 
 Berdasarkan evaluasi metrik dan analisis visual, LightGBM Regressor dipilih sebagai model terbaik dalam proyek ini. Model ini tidak hanya memberikan akurasi tinggi, tetapi juga efisiensi dalam proses pelatihan, serta mampu menangani dataset kompleks dengan baik.
-
-
-\( R^2 = 1 - \frac{ \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 }{ \sum_{i=1}^{n} (y_i - \bar{y})^2 } \)
